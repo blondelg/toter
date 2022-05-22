@@ -20,9 +20,8 @@ One move to run selected text into a terminal
 check if install is done well:
 
 ```shell    
-    $ toter -v
-    
-    toter 1.0.1 
+$ toter -v
+toter 1.0.1 
 ```
 
 ## other
