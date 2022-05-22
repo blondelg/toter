@@ -1,15 +1,19 @@
 # toter
 Run selected text into a gnome terminal
 
+![demo](./demo.gif)
+
 # example
 Once a text is selected somewhere, run:
-`bash
+
+`
 toter -r
 `
 
 # install
 ## debian
-`bash
+
+`
 sudo dpkg -i toter.deb
 `
 
