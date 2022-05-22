@@ -1,21 +1,57 @@
 #!/bin/bash
 
 
+
 function usage {
-        echo "Usage: $(basename $0)" [-r] 2>&1
-        echo '   -r  runs highlighted text in a terminal'
-        exit 1
+  echo "Usage: $(basename $0)" [-r] [-c] 2>&1
+  echo '   -r  runs highlighted text in a terminal'
+  echo "   -c  generate a configfile to customize behaviour (~/.toter.conf)"
+  exit 1
+}
+
+function generate_configfile {
+  echo "# Toter configfile" > ~/.toter.conf
+  echo "" >> ~/.toter.conf
+  echo "# wait for confirmation before closing terminal" >> ~/.toter.conf
+  echo "# default: True" >> ~/.toter.conf
+  echo 'close_confirmation="True"' >> ~/.toter.conf
+}
+
+function parse_config {
+  # source conf
+  if [ -f ~/.toter.conf ]; then
+     source ~/.toter.conf
+  fi
+
+  # set default
+  if [[ $close_confirmation != "True" ]] && [[ $close_confirmation != "False" ]]; then
+    close_confirmation="True"
+  fi
+}
+
+function run_command {
+  parse_config
+  command='echo "Running: $(xsel)"; eval $(xsel);'
+
+  if [[ $close_confirmation == "True" ]]; then
+    command+=' echo -e "\nPress ENTER to exit"; read'
+  fi
+  
+  gnome-terminal -- bash -c "$command"
+
 }
 
 if [[ ${#} -eq 0 ]]; then
    usage
 fi
 
-optstring=":r"
+optstring=":rct"
 
 while getopts ${optstring} arg; do
   case "${arg}" in
-    r) gnome-terminal -- bash -c 'echo "Running: $(xsel)"; eval $(xsel); echo -e "\nPress ENTER to exit";read' ;;
+    r) run_command;;
+    c) generate_configfile;;
+    t) parse_config;;
     ?)
       echo "Invalid option: -${OPTARG}."
       echo
