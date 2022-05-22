@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+function usage {
+        echo "Usage: $(basename $0)" [-r] 2>&1
+        echo '   -r  runs highlighted text in a terminal'
+        exit 1
+}
+
+if [[ ${#} -eq 0 ]]; then
+   usage
+fi
+
+optstring=":r"
+
+while getopts ${optstring} arg; do
+  case "${arg}" in
+    r) gnome-terminal -- bash -c 'echo "Running: $(xsel)"; eval $(xsel); echo -e "\nPress ENTER to exit";read' ;;
+    ?)
+      echo "Invalid option: -${OPTARG}."
+      echo
+      usage
+      ;;
+  esac
+done
+

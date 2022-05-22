@@ -1,0 +1,10 @@
+Package: toter
+Version: 1.0
+Section: custom
+Priority: optional
+Architecture: all
+Essential: no
+Installed-Size: 1024
+Maintainer: geoffroy.blondel@gmail.com
+Depends: xsel
+Description: Run selected text into a terminal
