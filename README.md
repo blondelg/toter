@@ -1,6 +1,8 @@
 # toter
 Run selected text into a gnome terminal
 
+<img src="https://img.shields.io/badge/Made%20with-Bash-1f425f.svg"></img>
+
 ![demo](./demo.gif)
 
 # example
