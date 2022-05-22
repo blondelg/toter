@@ -21,6 +21,7 @@ check if install is done well:
 
 `    
     $ toter -v
+    
     toter 1.0.1 
 `
 
