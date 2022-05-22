@@ -3,9 +3,10 @@
 
 
 function usage {
-  echo "Usage: $(basename $0)" [-r] [-c] 2>&1
+  echo "Usage: $(basename $0)" [-r] [-c] [-v] 2>&1
   echo '   -r  runs highlighted text in a terminal'
   echo "   -c  generate a configfile to customize behaviour (~/.toter.conf)"
+  echo "   -v  version"
   exit 1
 }
 
@@ -15,6 +16,10 @@ function generate_configfile {
   echo "# wait for confirmation before closing terminal" >> ~/.toter.conf
   echo "# default: True" >> ~/.toter.conf
   echo 'close_confirmation="True"' >> ~/.toter.conf
+}
+
+function version {
+  echo 'toter 1.0.1'
 }
 
 function parse_config {
@@ -36,7 +41,7 @@ function run_command {
   if [[ $close_confirmation == "True" ]]; then
     command+=' echo -e "\nPress ENTER to exit"; read'
   fi
-  
+
   gnome-terminal -- bash -c "$command"
 
 }
@@ -45,13 +50,13 @@ if [[ ${#} -eq 0 ]]; then
    usage
 fi
 
-optstring=":rct"
+optstring=":rcv"
 
 while getopts ${optstring} arg; do
   case "${arg}" in
     r) run_command;;
     c) generate_configfile;;
-    t) parse_config;;
+    v) version;;
     ?)
       echo "Invalid option: -${OPTARG}."
       echo
