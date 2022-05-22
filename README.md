@@ -14,7 +14,7 @@ toter -r
 ## debian
 
 `
-sudo dpkg -i toter.deb
+sudo dpkg -i toter_1.0.1.deb
 `
 
 ## other
